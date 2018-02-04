@@ -42,3 +42,14 @@
       cursor: pointer;
       font-weight: bold;
     }
+
+    .game {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+
+    }
+
+    .hidden {
+      display: none;
+    }

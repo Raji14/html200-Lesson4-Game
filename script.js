@@ -1,6 +1,6 @@
 //define canvas
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
+//var canvas = document.getElementById("myCanvas");
+//var ctx = canvas.getContext("2d");
 
 
 
@@ -13,7 +13,17 @@ function drawSquare() {
   ctx.fill();
   ctx.closePath();
 }
-drawSquare();
+//drawSquare();
+
+//getting usere name and then hiding the form
+function startGame() {
+  const userName = document.getElementById("userName").value;
+  document.getElementById("introduction").classList.add("hidden");
+  document.getElementById("game").classList.remove("hidden");
+
+  return false;
+}
+
 
 function createMap(width, height, canvas, startPos, treasurePos) {
   var map = {
@@ -68,6 +78,6 @@ function makePos(x, y) {
   }
 }
 
-
+var canvas = null;
 var map = createMap(3, 3, canvas, makePos(0, 0), makePos(2, 2));
 console.log("hello");

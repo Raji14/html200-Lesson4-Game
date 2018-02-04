@@ -13,13 +13,18 @@
   <section class="container" id="introduction">
     <h1>Welcome stranger!</h1>
     <section>
-      <form onsubmit="myFunction()">
-        Enter name: <input type="text">
+      <form onsubmit="return startGame()" action="#">
+        Enter name: <input type="text" id="userName">
         <input type="submit">
       </form>
     </section>
   </section>
-  <!--  <canvas id="myCanvas"></canvas>-->
+  <section class="game hidden" id="game">
+    <canvas id="myCanvas"></canvas>
+
+  </section>
+
+
   <script src="script.js">
 
 
