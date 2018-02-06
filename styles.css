@@ -38,7 +38,7 @@
       padding: .50rem 1rem;
       text-decoration: none;
       margin: 4px 2px;
-      cursor: pointer;
+/*      cursor: pointer;*/
       font-weight: bold;
     }
 
@@ -49,23 +49,7 @@
 
     }
 
-    .moveControls {
-      text-align: center;
-    }
-
-    img {
-      width: 30px;
-      height: 30px;
-      margin: 10px;
-    }
-
-    img:hover {
-      cursor: pointer;
-    }
-
-    .hidden {
-      display: none;
-    }
+    /*Console Message log*/
 
     .console {
       background: #ffffff;
@@ -86,4 +70,25 @@
     .log p {
       color: red;
       font-size: .75rem;
+    }
+
+    /*Move Controls*/
+
+    #moveControls {
+      text-align: center;
+    }
+
+    #moveControls img {
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      margin: 10px;
+    }
+
+    #moveControls.disabled {
+      display: none;
+    }
+
+    .hidden {
+      display: none;
     }

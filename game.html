@@ -4,15 +4,14 @@
 <head>
   <meta charset="utf-8" />
   <title>Gamedev Canvas Workshop</title>
-
   <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="styles.css">
-  <script src="https://use.fontawesome.com/bef7ad5d00.js"></script>
 </head>
 
 <body>
+  <!--  Introduction-->
   <section class="container" id="introduction">
-    <h1>Welcome stranger!</h1>
+    <h1>Welcome Adventurer!</h1>
     <section>
       <form onsubmit="return startGame()" action="#">
         Enter name: <input type="text" id="userName">
@@ -20,40 +19,38 @@
       </form>
     </section>
   </section>
+
+  <!--  Game Map-->
   <section class="game hidden" id="game">
     <section>
       <canvas id="myCanvas" width="500" height="500"></canvas>
-      <section class="moveControls">
+
+      <!--      Move controls-->
+      <section id="moveControls">
         <img src="images/if_057_CircledArrowLeft_183186.png" alt="Go East" id="imgWest">
         <img src="images/if_055_CircledArrowUp_183184.png" alt="Go North" id="imgNorth">
         <img src="images/if_058_CircledArrowRight_183187.png" alt="Go West" id="imgEast">
         <img src="images/if_056_CircledArrowDown_183185.png" alt="Go South" id="imgSouth">
       </section>
     </section>
+
+    <!--   Message console-->
     <section class="console" id="console">
       <h1> Hey, User! Let's see if you can find the treasure!</h1>
-      <p>The overflow property specifies what happens if content overflows an element's box. This property specifies whether to clip content or to add scrollbars when an element's content is too big to fit in a specified area.</p>
-
+      <p>Click on the controls to move. Locate the treasure to win!</p>
       <section class="log" id="log">
       </section>
     </section>
-
-
   </section>
 
-
-
-
-
-
-
-
-
+  <!--  Audio on move-->
   <audio src="162481__kastenfrosch__sound3.mp3" preload="auto" style="display: none" controls="none" id="moveSound"></audio>
+
   <script src="script.js">
 
 
   </script>
+
 </body>
 
 </html>
