@@ -49,6 +49,20 @@
 
     }
 
+    .moveControls {
+      text-align: center;
+    }
+
+    img {
+      width: 30px;
+      height: 30px;
+      margin: 10px;
+    }
+
+    img:hover {
+      cursor: pointer;
+    }
+
     .hidden {
       display: none;
     }
@@ -60,6 +74,7 @@
       height: 500px;
       padding: 1rem;
       margin: 1rem;
+      float: right;
     }
 
     .log {
@@ -71,14 +86,4 @@
     .log p {
       color: red;
       font-size: .75rem;
-    }
-
-    .log p::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 1px; // suit your need
-      background: black; // suit your need
-      top: 100%;
-      left: 0;
     }

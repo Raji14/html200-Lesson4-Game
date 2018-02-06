@@ -8,6 +8,7 @@ function startGame() {
 }
 
 
+//creating the game map with all the parameters
 function createMap(width, height, canvas, startPos, treasurePos, adventureLogger) {
   var map = {
     width: width,
@@ -17,7 +18,9 @@ function createMap(width, height, canvas, startPos, treasurePos, adventureLogger
     treasurePos: treasurePos,
     currentPos: startPos,
     adventureLogger: adventureLogger,
+    treasureFound: false,
 
+    //creating the move function and checking if it is within bounds
     move: function (direction, newPos) {
       const oldPos = this.currentPos;
       if (!this.inBounds(newPos)) {
@@ -26,13 +29,23 @@ function createMap(width, height, canvas, startPos, treasurePos, adventureLogger
       }
       this.currentPos = newPos;
       this.adventureLogger.log("Moving " + direction + ".");
+      document.getElementById("moveSound").currentTime = 0;
+      document.getElementById("moveSound").play();
+
+
+      if (this.currentPos.x == this.treasurePos.x && this.currentPos.y == this.treasurePos.y) {
+        this.treasureFound = true;
+        this.adventureLogger.log("Yay! You found the treasure!")
+
+      }
       this.draw();
 
     },
     moveEast: function () {
       const oldPos = this.currentPos;
       const newPos = makePos(oldPos.x + 1, oldPos.y);
-      this.move("east", newPos)
+      this.move("east", newPos);
+
     },
     moveWest: function () {
       const oldPos = this.currentPos;
@@ -62,12 +75,8 @@ function createMap(width, height, canvas, startPos, treasurePos, adventureLogger
       return this.treasurePos;
     },
 
-    isAtTreasurePos: function () {
-      return this.currentPos == this.treasurePos;
-    },
-
     draw: function () {
-      const ctx = this.canvas.getContext("2d");
+      var ctx = this.canvas.getContext("2d");
       ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       ctx.strokeStyle = "#333";
       ctx.lineWidth = 1;
@@ -88,17 +97,32 @@ function createMap(width, height, canvas, startPos, treasurePos, adventureLogger
         ctx.stroke();
       }
       //draw user
-      drawSquare = function (x, y) {
-        ctx.beginPath();
-        ctx.rect(x, y, cellSize, cellSize);
-        ctx.fillStyle = "crimson";
-        ctx.fill();
-        ctx.closePath();
-      };
-      //inverse the axis to start from the bottom left
-      drawSquare(this.currentPos.x * cellSize, (-(this.currentPos.y - this.height) - 1) * cellSize);
-    }
 
+      //inverse the axis to start from the bottom left
+      this.drawSquare(ctx, this.currentPos.x, this.currentPos.y);
+
+      //display treasure icon
+      if (this.treasureFound) {
+        const x = this.treasurePos.x * cellSize;
+        const y = (-(this.treasurePos.y - this.height) - 1) * cellSize;
+
+        var img = new Image();
+        img.src = 'images/if_treasure_45274.png';
+        img.addEventListener('load', function () {
+          ctx.drawImage(img, x, y)
+        }, false);
+
+      }
+    },
+
+    drawSquare: function (ctx, x, y) {
+      ctx.beginPath();
+      const cellSize = this.canvas.width / this.width;
+      ctx.rect(x * cellSize, (-(y - this.height) - 1) * cellSize, cellSize, cellSize);
+      ctx.fillStyle = "crimson";
+      ctx.fill();
+      ctx.closePath();
+    }
   };
   return map;
 }
@@ -108,6 +132,13 @@ function makePos(x, y) {
     x: x,
     y: y
   }
+}
+
+// generate a random tresaure position
+function generateRandomTreasurePos(width, height) {
+  const x = Math.floor(Math.random() * width);
+  const y = Math.floor(Math.random() * height);
+  return makePos(x, y);
 }
 
 function createAdventureLogger() {
@@ -146,8 +177,24 @@ startGame();
 
 var adventureLogger = createAdventureLogger();
 var canvas = document.getElementById("myCanvas");
-var map = createMap(5, 5, canvas, makePos(0, 0), makePos(2, 2), adventureLogger);
+const width = 5;
+const height = 5;
+var map = createMap(5, 5, canvas, makePos(0, 0), generateRandomTreasurePos(width, height), adventureLogger);
 map.draw();
+document.getElementById("imgEast").addEventListener("click", function () {
+  map.moveEast();
+});
+document.getElementById("imgWest").addEventListener("click", function () {
+  map.moveWest();
+});
+document.getElementById("imgNorth").addEventListener("click", function () {
+  map.moveNorth();
+});
+document.getElementById("imgSouth").addEventListener("click", function () {
+  map.moveSouth();
+});
+
+
 
 
 // Movement
