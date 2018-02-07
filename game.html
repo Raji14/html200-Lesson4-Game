@@ -10,8 +10,11 @@
 
 <body>
   <!--  Introduction-->
+  <header>
+    <h1>Treasure Hunt</h1>
+  </header>
   <section class="container" id="introduction">
-    <h1>Welcome Adventurer!</h1>
+    <h2>Welcome Adventurer!</h2>
     <section>
       <form onsubmit="return startGame()" action="#">
         Enter name: <input type="text" id="userName">
@@ -24,33 +27,33 @@
   <section class="game hidden" id="game">
     <section>
       <canvas id="myCanvas" width="500" height="500"></canvas>
-
       <!--      Move controls-->
       <section id="moveControls">
         <img src="images/if_057_CircledArrowLeft_183186.png" alt="Go East" id="imgWest">
         <img src="images/if_055_CircledArrowUp_183184.png" alt="Go North" id="imgNorth">
         <img src="images/if_058_CircledArrowRight_183187.png" alt="Go West" id="imgEast">
         <img src="images/if_056_CircledArrowDown_183185.png" alt="Go South" id="imgSouth">
+        <p>Click on the controls to move. Locate the treasure to win!</p>
       </section>
+
     </section>
 
     <!--   Message console-->
+
     <section class="console" id="console">
-      <h1> Hey, User! Let's see if you can find the treasure!</h1>
-      <p>Click on the controls to move. Locate the treasure to win!</p>
+      <!--      Restart game button-->
+      <form><button class="restartbutton" id="restartGame">Restart Game</button></form>
+      <!--     Message area-->
       <section class="log" id="log">
       </section>
     </section>
   </section>
 
+
   <!--  Audio on move-->
-  <audio src="162481__kastenfrosch__sound3.mp3" preload="auto" style="display: none" controls="none" id="moveSound"></audio>
-
+  <audio src="162481__kastenfrosch__sound3.mp3" preload="auto" style="display: none;" id="moveSound"></audio>
   <script src="script.js">
-
-
   </script>
-
 </body>
 
 </html>

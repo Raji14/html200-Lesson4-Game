@@ -1,7 +1,34 @@
 //getting usere name and then hiding the form
 function startGame() {
   const userName = document.getElementById("userName").value;
+
+  var adventureLogger = createAdventureLogger();
+  adventureLogger.clear();
+
+  var canvas = document.getElementById("myCanvas");
+  const width = 5;
+  const height = 5;
+  var map = createMap(width, height, canvas, makePos(0, 0), generateRandomTreasurePos(width, height), adventureLogger, userName);
+  map.draw();
+
+
+  //set up move controls
+  document.getElementById("imgEast").addEventListener("click", function () {
+    map.moveEast();
+  });
+  document.getElementById("imgWest").addEventListener("click", function () {
+    map.moveWest();
+  });
+  document.getElementById("imgNorth").addEventListener("click", function () {
+    map.moveNorth();
+  });
+  document.getElementById("imgSouth").addEventListener("click", function () {
+    map.moveSouth();
+  });
+
+  // Hide intro
   document.getElementById("introduction").classList.add("hidden");
+  // Show game
   document.getElementById("game").classList.remove("hidden");
 
   return false;
@@ -9,7 +36,7 @@ function startGame() {
 
 
 //creating the game map with all the parameters
-function createMap(width, height, canvas, startPos, treasurePos, adventureLogger) {
+function createMap(width, height, canvas, startPos, treasurePos, adventureLogger, userName) {
   var map = {
     width: width,
     height: height,
@@ -19,16 +46,17 @@ function createMap(width, height, canvas, startPos, treasurePos, adventureLogger
     currentPos: startPos,
     adventureLogger: adventureLogger,
     treasureFound: false,
+    userName: userName,
 
     //creating the move function and checking if it is within bounds
     move: function (direction, newPos) {
       const oldPos = this.currentPos;
       if (!this.inBounds(newPos)) {
-        this.adventureLogger.log("Cannot move " + direction + "!");
+        this.adventureLogger.log(this.userName + ", you cannot move " + direction + "!");
         return;
       }
       this.currentPos = newPos;
-      this.adventureLogger.log("Moving " + direction + ".");
+      this.adventureLogger.log(this.userName + ", you are moving " + direction + ".");
 
       //play sound on move
       document.getElementById("moveSound").currentTime = 0;
@@ -181,49 +209,3 @@ function createAdventureLogger() {
     }
   }
 }
-
-// TODO: remove when done with testing
-startGame();
-
-
-var adventureLogger = createAdventureLogger();
-var canvas = document.getElementById("myCanvas");
-const width = 5;
-const height = 5;
-var map = createMap(width, height, canvas, makePos(0, 0), generateRandomTreasurePos(width, height), adventureLogger);
-map.draw();
-
-//set up move controls
-document.getElementById("imgEast").addEventListener("click", function () {
-  map.moveEast();
-});
-document.getElementById("imgWest").addEventListener("click", function () {
-  map.moveWest();
-});
-document.getElementById("imgNorth").addEventListener("click", function () {
-  map.moveNorth();
-});
-document.getElementById("imgSouth").addEventListener("click", function () {
-  map.moveSouth();
-});
-
-
-
-
-// Movement
-// TODO: Add movement controls and bind to bind to map.moveEast, etc
-// document.getElementById(...).addEventListener("click", function() {map.moveNorth();});
-// TODO: Disable movement controls if they would take me out of bounds
-
-// Gameplay
-// TODO: randomly generate treasure location
-// TODO: Detect finding of treasure
-// TODO: Countdown number of moves
-// TODO: Detect losing and display message
-
-// Overall
-// TODO: Add a restart button
-// TODO: Add sound on victory, defeat, and on moves
-// TODO: Use the player's name in the adventure log and in the display
-// TODO: Log a welcome message with directions (how many moves you get, etc)
-// TODO: Log a victory or defeat message
